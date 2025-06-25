@@ -1,0 +1,1141 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alpha Penetration | Intelligence & Influence Agency</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --black: #0a0a0a;
+            --dark-gray: #121212;
+            --medium-gray: #1e1e1e;
+            --light-gray: #2a2a2a;
+            --accent-red: #8b0000;
+            --accent-green: #1a3a2a;
+            --text-primary: #e0e0e0;
+            --text-secondary: #a0a0a0;
+        }
+        
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: var(--black);
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+        
+        .redacted {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .redacted::after {
+            content: "";
+            position: absolute;
+            top: 45%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: var(--accent-red);
+            animation: redact 2s infinite;
+        }
+        
+        @keyframes redact {
+            0% { opacity: 0.7; }
+            50% { opacity: 1; }
+            100% { opacity: 0.7; }
+        }
+        
+        .scan-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-green), transparent);
+            animation: scan 3s linear infinite;
+            opacity: 0.5;
+            z-index: 10;
+        }
+        
+        @keyframes scan {
+            0% { top: 0; }
+            100% { top: 100%; }
+        }
+        
+        .code-stream {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            opacity: 0.15;
+            z-index: 0;
+        }
+        
+        .code-line {
+            position: absolute;
+            font-family: monospace;
+            font-size: 12px;
+            color: var(--accent-green);
+            white-space: nowrap;
+            animation: fall linear infinite;
+        }
+        
+        @keyframes fall {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100vh); }
+        }
+        
+        .mission-card {
+            background-color: var(--medium-gray);
+            border-left: 2px solid var(--accent-red);
+            transition: all 0.3s ease;
+        }
+        
+        .mission-card:hover {
+            background-color: var(--light-gray);
+            transform: translateY(-5px);
+        }
+        
+        .grid-line {
+            position: absolute;
+            background-color: rgba(255,255,255,0.05);
+        }
+        
+        .vertical-line {
+            width: 1px;
+            height: 100%;
+            top: 0;
+        }
+        
+        .horizontal-line {
+            height: 1px;
+            width: 100%;
+            left: 0;
+        }
+        
+        .btn-primary {
+            background-color: var(--accent-red);
+            color: var(--text-primary);
+            border: none;
+            padding: 12px 24px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary:hover {
+            background-color: #a00000;
+        }
+        
+        .btn-primary::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: shine 3s infinite;
+        }
+        
+        @keyframes shine {
+            0% { left: -100%; }
+            20% { left: 100%; }
+            100% { left: 100%; }
+        }
+        
+        .section {
+            position: relative;
+            padding: 6rem 0;
+            overflow: hidden;
+        }
+        
+        .section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--text-secondary), transparent);
+            opacity: 0.3;
+        }
+        
+        .pricing-card {
+            background-color: var(--medium-gray);
+            border-top: 1px solid var(--light-gray);
+            transition: all 0.3s ease;
+        }
+        
+        .pricing-card:hover {
+            background-color: var(--light-gray);
+        }
+        
+        .client-icon {
+            opacity: 0.6;
+            transition: all 0.3s ease;
+        }
+        
+        .client-icon:hover {
+            opacity: 1;
+        }
+        
+        .nav-link {
+            position: relative;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--accent-red);
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: var(--text-primary);
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .typing-effect {
+            border-right: 2px solid var(--accent-red);
+            white-space: nowrap;
+            overflow: hidden;
+            animation: typing 4s steps(40) infinite, blink-caret 0.75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            0%, 100% { width: 0 }
+            50%, 90% { width: 100% }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--accent-red) }
+        }
+        
+        .redacted-text {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .redacted-text::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: var(--accent-red);
+        }
+        
+        .case-study {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .case-study:hover {
+            transform: translateY(-5px);
+        }
+        
+        .case-study::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.8));
+            z-index: 1;
+        }
+        
+        .case-study-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Radar Animation */
+        .radar-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
+            border-radius: 50%;
+            background-color: rgba(0, 20, 0, 0.2);
+            border: 1px solid var(--accent-green);
+            overflow: hidden;
+        }
+        
+        .radar-sweep {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50%;
+            height: 50%;
+            background: linear-gradient(90deg, transparent, rgba(139, 0, 0, 0.4));
+            transform-origin: bottom right;
+            animation: sweep 4s infinite linear;
+        }
+        
+        @keyframes sweep {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .radar-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+        }
+        
+        .radar-circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            border: 1px solid rgba(139, 0, 0, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .radar-circle:nth-child(1) {
+            width: 30%;
+            height: 30%;
+        }
+        
+        .radar-circle:nth-child(2) {
+            width: 60%;
+            height: 60%;
+        }
+        
+        .radar-circle:nth-child(3) {
+            width: 90%;
+            height: 90%;
+        }
+        
+        .radar-line {
+            position: absolute;
+            background-color: rgba(139, 0, 0, 0.3);
+        }
+        
+        .radar-line-h {
+            width: 100%;
+            height: 1px;
+            top: 50%;
+            left: 0;
+        }
+        
+        .radar-line-v {
+            width: 1px;
+            height: 100%;
+            top: 0;
+            left: 50%;
+        }
+        
+        .radar-blip {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background-color: var(--accent-red);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: blip 2s infinite;
+        }
+        
+        @keyframes blip {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+            70% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
+        }
+        
+        /* Data Visualization Animation */
+        .data-viz {
+            position: relative;
+            height: 200px;
+            width: 100%;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            padding: 0 10px;
+        }
+        
+        .data-bar {
+            width: 8px;
+            background: linear-gradient(to top, var(--accent-red), var(--accent-green));
+            animation: data-pulse 3s infinite;
+            opacity: 0.8;
+        }
+        
+        @keyframes data-pulse {
+            0%, 100% { height: var(--h); }
+            50% { height: calc(var(--h) * 0.7); }
+        }
+        
+        /* Terminal Animation */
+        .terminal {
+            background-color: var(--dark-gray);
+            border: 1px solid var(--light-gray);
+            border-radius: 4px;
+            padding: 20px;
+            font-family: monospace;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .terminal-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            border-bottom: 1px solid var(--light-gray);
+            padding-bottom: 10px;
+        }
+        
+        .terminal-btn {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .terminal-close { background-color: #ff5f56; }
+        .terminal-minimize { background-color: #ffbd2e; }
+        .terminal-maximize { background-color: #27c93f; }
+        
+        .terminal-title {
+            margin-left: 10px;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+        
+        .terminal-content {
+            color: var(--text-primary);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        .terminal-line {
+            display: flex;
+            margin-bottom: 8px;
+        }
+        
+        .terminal-prompt {
+            color: var(--accent-red);
+            margin-right: 10px;
+        }
+        
+        .terminal-text {
+            flex: 1;
+        }
+        
+        .terminal-cursor {
+            display: inline-block;
+            width: 8px;
+            height: 15px;
+            background-color: var(--accent-red);
+            animation: cursor-blink 1s infinite;
+            vertical-align: middle;
+        }
+        
+        @keyframes cursor-blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        
+        /* Glitch Effect */
+        .glitch {
+            position: relative;
+            animation: glitch 5s infinite;
+        }
+        
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            1% { transform: translate(-2px, 2px); }
+            2% { transform: translate(2px, -2px); }
+            3% { transform: translate(0); }
+            10% { transform: translate(0); }
+            11% { transform: translate(-1px, -1px); }
+            12% { transform: translate(1px, 1px); }
+            13% { transform: translate(0); }
+            100% { transform: translate(0); }
+        }
+        
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .glitch::before {
+            left: 2px;
+            text-shadow: -1px 0 red;
+            animation: glitch-before 5s infinite linear alternate-reverse;
+            clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+            opacity: 0.8;
+        }
+        
+        .glitch::after {
+            left: -2px;
+            text-shadow: 1px 0 blue;
+            animation: glitch-after 5s infinite linear alternate-reverse;
+            clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+            opacity: 0.8;
+        }
+        
+        @keyframes glitch-before {
+            0% { clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%); }
+            5% { clip-path: polygon(0 15%, 100% 15%, 100% 45%, 0 45%); }
+            10% { clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%); }
+            100% { clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%); }
+        }
+        
+        @keyframes glitch-after {
+            0% { clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%); }
+            5% { clip-path: polygon(0 55%, 100% 55%, 100% 85%, 0 85%); }
+            10% { clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%); }
+            100% { clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Grid Lines -->
+    <div class="grid-line vertical-line" style="left: 25%"></div>
+    <div class="grid-line vertical-line" style="left: 50%"></div>
+    <div class="grid-line vertical-line" style="left: 75%"></div>
+    <div class="grid-line horizontal-line" style="top: 33%"></div>
+    <div class="grid-line horizontal-line" style="top: 66%"></div>
+    
+    <!-- Scan Line Animation -->
+    <div class="scan-line"></div>
+    
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-opacity-90 bg-black backdrop-blur-md border-b border-gray-800">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <svg class="h-8 w-8 mr-2" viewBox="0 0 24 24" fill="none" xmlns="https://storage.googleapis.com/msgsndr/GP5VswcPcK6LEER5V1sR/media/685c0286f90bf91edc18a731.svg">
+                    <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#8b0000" stroke-width="2"/>
+                    <path d="M2 17L12 22L22 17" stroke="#8b0000" stroke-width="2"/>
+                    <path d="M2 12L12 17L22 12" stroke="#8b0000" stroke-width="2"/>
+                </svg>
+                <span class="text-xl font-bold tracking-wider">ALPHA PENETRATION</span>
+            </div>
+            <div class="hidden md:flex space-x-8">
+                <a href="#services" class="nav-link text-sm uppercase tracking-wider">Services</a>
+                <a href="#personnel" class="nav-link text-sm uppercase tracking-wider">Personnel</a>
+                <a href="#casestudies" class="nav-link text-sm uppercase tracking-wider">Case Studies</a>
+                <a href="#contact" class="nav-link text-sm uppercase tracking-wider">Contact</a>
+            </div>
+            <div>
+                <a href="mailto:login@alphapenetration.com/" class="hidden md:inline-block px-4 py-2 border border-red-900 text-sm uppercase tracking-wider hover:bg-red-900/20 transition-all">Secure Login</a>
+                <button class="md:hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center pt-20">
+        <div class="code-stream" id="codeStream"></div>
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="max-w-4xl">
+                <div class="inline-block px-3 py-1 mb-6 border border-red-900 bg-red-900/10">
+                    <span class="text-xs uppercase tracking-widest">Classified Intelligence</span>
+                </div>
+                <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight glitch" data-text="Precision in Shadows. Results in Silence.">Precision in Shadows. Results in Silence.</h1>
+                <p class="text-lg md:text-xl text-gray-300 mb-10 max-w-2xl">Alpha Penetration operates in the shadows, deploying field operatives, ex-intelligence agents, and forensic minds to deliver outcomes that others cannot achieve. We execute missions with surgical precision, leaving no trace behind.</p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#contact" class="btn-primary inline-block text-center">Initiate Secure Contact</a>
+                    <a href="#services" class="inline-block px-6 py-3 border border-gray-700 text-center hover:bg-gray-800 transition-all">View Capabilities</a>
+                </div>
+                
+                <div class="mt-16 grid grid-cols-3 gap-8 border-t border-gray-800 pt-8">
+                    <div>
+                        <div class="text-xs text-gray-500 uppercase tracking-wider mb-1">Operational Since</div>
+                        <div class="text-xl">2014</div>
+                    </div>
+                    <div>
+                        <div class="text-xs text-gray-500 uppercase tracking-wider mb-1">Global Reach</div>
+                        <div class="text-xl">47 Countries</div>
+                    </div>
+                    <div>
+                        <div class="text-xs text-gray-500 uppercase tracking-wider mb-1">Success Rate</div>
+                        <div class="text-xl">94.7%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="absolute bottom-10 left-0 right-0 flex justify-center">
+            <a href="#services" class="animate-bounce">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                </svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- Radar Animation Section -->
+    <section class="section bg-gradient-to-b from-gray-900 to-black">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-12">
+                <div class="w-full md:w-1/2">
+                    <div class="inline-block px-3 py-1 mb-6 border border-red-900 bg-red-900/10">
+                        <span class="text-xs uppercase tracking-widest">Global Surveillance</span>
+                    </div>
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6">Real-Time Target Acquisition</h2>
+                    <p class="text-gray-400 mb-6">Our proprietary tracking systems monitor high-value targets across all continents. We maintain constant surveillance on subjects of interest, ready to deploy assets within hours of authorization.</p>
+                    
+                    <div class="grid grid-cols-2 gap-6 mb-8">
+                        <div class="bg-gray-900/30 p-4">
+                            <div class="text-sm text-gray-500 uppercase tracking-wider mb-1">Active Targets</div>
+                            <div class="text-2xl">143</div>
+                        </div>
+                        <div class="bg-gray-900/30 p-4">
+                            <div class="text-sm text-gray-500 uppercase tracking-wider mb-1">Response Time</div>
+                            <div class="text-2xl">4-36 hrs</div>
+                        </div>
+                    </div>
+                    
+                    <p class="text-sm text-gray-500">Our surveillance network operates with zero digital footprint, utilizing proprietary frequency-hopping protocols and quantum-resistant encryption.</p>
+                </div>
+                
+                <div class="w-full md:w-1/2">
+                    <div class="radar-container">
+                        <div class="radar-grid">
+                            <div class="radar-circle"></div>
+                            <div class="radar-circle"></div>
+                            <div class="radar-circle"></div>
+                            <div class="radar-line radar-line-h"></div>
+                            <div class="radar-line radar-line-v"></div>
+                        </div>
+                        <div class="radar-sweep"></div>
+                        <div class="radar-blip" style="top: 30%; left: 65%;"></div>
+                        <div class="radar-blip" style="top: 70%; left: 25%;"></div>
+                        <div class="radar-blip" style="top: 45%; left: 80%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="section bg-gradient-to-b from-black to-gray-900">
+        <div class="container mx-auto px-6">
+            <div class="mb-16 max-w-xl">
+                <div class="inline-block px-3 py-1 mb-6 border border-green-900 bg-green-900/10">
+                    <span class="text-xs uppercase tracking-widest">Services Overview</span>
+                </div>
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">We Deploy Assets. Not Slide Decks.</h2>
+                <p class="text-gray-400">Our methodologies transcend conventional intelligence gathering, focusing on actionable outcomes that shape results before competitors recognize the battlefield.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <!-- Ground Intelligence Operations -->
+                <div class="bg-gray-900/50 p-8 border-t border-gray-800">
+                    <div class="h-12 w-12 mb-6 flex items-center justify-center border border-red-900">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Ground Intelligence Operations</h3>
+                    <p class="text-gray-400 mb-6">Our primary focus. Real-world assets deployed with precision for tangible outcomes.</p>
+                    
+                    <ul class="space-y-3 text-gray-300">
+                        <li class="flex items-start">
+                            <span class="text-red-800 mr-2">›</span>
+                            <span>Social engineering & infiltration</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-red-800 mr-2">›</span>
+                            <span>Deep-cover human intelligence (HUMINT)</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-red-800 mr-2">›</span>
+                            <span>Discreet source development & interrogation</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-red-800 mr-2">›</span>
+                            <span>Asset location & recovery (domestic/foreign)</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-red-800 mr-2">›</span>
+                            <span>Surveillance & behavioral analysis</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-red-800 mr-2">›</span>
+                            <span>Crisis containment & suppression</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-red-800 mr-2">›</span>
+                            <span>Blackbag-level recon and investigations</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Analytical & Digital Intelligence -->
+                <div class="bg-gray-900/50 p-8 border-t border-gray-800">
+                    <div class="h-12 w-12 mb-6 flex items-center justify-center border border-red-900">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Analytical & Digital Intelligence</h3>
+                    <p class="text-gray-400 mb-6">Supporting capabilities that enhance our field operations with cutting-edge technology.</p>
+                    
+                    <ul class="space-y-3 text-gray-300">
+                        <li class="flex items-start">
+                            <span class="text-red-800 mr-2">›</span>
+                            <span>Forensic financial tracing & digital footprint mapping</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-red-800 mr-2">›</span>
+                            <span>AI-powered behavioral analytics</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-red-800 mr-2">›</span>
+                            <span>Predictive modeling for hostile actions</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-red-800 mr-2">›</span>
+                            <span>Cyber threat attribution</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-red-800 mr-2">›</span>
+                            <span>Corporate espionage prevention</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-red-800 mr-2">›</span>
+                            <span>Network and metadata forensics</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="mt-12 text-center">
+                <p class="text-sm text-gray-500 italic">We operate under multiple jurisdictions with offshore legal firewalls.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Data Visualization Section -->
+    <section class="section bg-black">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-12">
+                <div class="w-full md:w-1/2">
+                    <div class="inline-block px-3 py-1 mb-6 border border-green-900 bg-green-900/10">
+                        <span class="text-xs uppercase tracking-widest">Performance Metrics</span>
+                    </div>
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6">Operational Success Rate</h2>
+                    <p class="text-gray-400 mb-6">Our operations are measured by one metric only: success. We maintain the highest completion rate in the industry, with zero compromise incidents in our operational history.</p>
+                    
+                    <div class="terminal mb-8">
+                        <div class="terminal-header">
+                            <div class="terminal-btn terminal-close"></div>
+                            <div class="terminal-btn terminal-minimize"></div>
+                            <div class="terminal-btn terminal-maximize"></div>
+                            <div class="terminal-title">alpha_penetration@secure ~ </div>
+                        </div>
+                        <div class="terminal-content">
+                            <div class="terminal-line">
+                                <span class="terminal-prompt">$</span>
+                                <span class="terminal-text">access --stats --year=2023 --clearance=alpha</span>
+                            </div>
+                            <div class="terminal-line">
+                                <span class="terminal-prompt">&gt;</span>
+                                <span class="terminal-text">Accessing secure database...</span>
+                            </div>
+                            <div class="terminal-line">
+                                <span class="terminal-prompt">&gt;</span>
+                                <span class="terminal-text">Authentication successful.</span>
+                            </div>
+                            <div class="terminal-line">
+                                <span class="terminal-prompt">&gt;</span>
+                                <span class="terminal-text">Operations completed: 47</span>
+                            </div>
+                            <div class="terminal-line">
+                                <span class="terminal-prompt">&gt;</span>
+                                <span class="terminal-text">Success rate: 94.7%</span>
+                            </div>
+                            <div class="terminal-line">
+                                <span class="terminal-prompt">&gt;</span>
+                                <span class="terminal-text">Average completion time: 17.3 days</span>
+                            </div>
+                            <div class="terminal-line">
+                                <span class="terminal-prompt">&gt;</span>
+                                <span class="terminal-text">Security incidents: 0</span>
+                            </div>
+                            <div class="terminal-line">
+                                <span class="terminal-prompt">&gt;</span>
+                                <span class="terminal-text">Asset recovery value: $142.7M</span>
+                            </div>
+                            <div class="terminal-line">
+                                <span class="terminal-prompt">$</span>
+                                <span class="terminal-text">_<span class="terminal-cursor"></span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="w-full md:w-1/2">
+                    <div class="data-viz">
+                        <div class="data-bar" style="--h: 60%"></div>
+                        <div class="data-bar" style="--h: 85%"></div>
+                        <div class="data-bar" style="--h: 75%"></div>
+                        <div class="data-bar" style="--h: 90%"></div>
+                        <div class="data-bar" style="--h: 65%"></div>
+                        <div class="data-bar" style="--h: 95%"></div>
+                        <div class="data-bar" style="--h: 80%"></div>
+                        <div class="data-bar" style="--h: 70%"></div>
+                        <div class="data-bar" style="--h: 85%"></div>
+                        <div class="data-bar" style="--h: 75%"></div>
+                        <div class="data-bar" style="--h: 90%"></div>
+                        <div class="data-bar" style="--h: 95%"></div>
+                        <div class="data-bar" style="--h: 85%"></div>
+                        <div class="data-bar" style="--h: 75%"></div>
+                        <div class="data-bar" style="--h: 80%"></div>
+                    </div>
+                    <div class="mt-4 text-center text-sm text-gray-500">
+                        <p>Operational Success Rate by Quarter (2019-2023)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Personnel Section -->
+    <section id="personnel" class="section bg-black">
+        <div class="container mx-auto px-6">
+            <div class="mb-16">
+                <div class="inline-block px-3 py-1 mb-6 border border-red-900 bg-red-900/10">
+                    <span class="text-xs uppercase tracking-widest">Personnel</span>
+                </div>
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">Personnel Disclosure Statement</h2>
+            </div>
+            
+            <div class="max-w-3xl mx-auto bg-gray-900/30 p-8 border-l-2 border-red-900">
+                <p class="text-xl font-bold mb-8">
+                    Our personnel include former members of <span class="redacted">British MI6</span>, <span class="redacted">Israeli Unit 8200</span>, <span class="redacted">American CIA and FBI</span>, as well as elite <span class="redacted">forensic accountants</span>, <span class="redacted">psychological warfare specialists</span>, and <span class="redacted">human behavior engineers</span>.
+                </p>
+                
+                <div class="space-y-4 text-center">
+                    <p class="text-xl">You will never meet our operatives.</p>
+                    <p class="text-xl">You will never know their names.</p>
+                    <p class="text-xl">If we're successful, you'll barely know we were there.</p>
+                </div>
+            </div>
+            
+            <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-gray-900/20 p-6 border-t border-gray-800">
+                    <div class="text-sm text-gray-500 uppercase tracking-wider mb-2">Client Range</div>
+                    <p class="text-gray-300">We serve clients ranging from private family offices to defense contractors to sovereign entities.</p>
+                </div>
+                
+                <div class="bg-gray-900/20 p-6 border-t border-gray-800">
+                    <div class="text-sm text-gray-500 uppercase tracking-wider mb-2">Operational Model</div>
+                    <p class="text-gray-300">We do not sell consulting. We deliver outcomes.</p>
+                </div>
+                
+                <div class="bg-gray-900/20 p-6 border-t border-gray-800">
+                    <div class="text-sm text-gray-500 uppercase tracking-wider mb-2">Intelligence Approach</div>
+                    <p class="text-gray-300">We don't rely on open-source intel. We create sources.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Case Studies Section -->
+    <section id="casestudies" class="section bg-gradient-to-b from-gray-900 to-black">
+        <div class="container mx-auto px-6">
+            <div class="mb-16">
+                <div class="inline-block px-3 py-1 mb-6 border border-green-900 bg-green-900/10">
+                    <span class="text-xs uppercase tracking-widest">Field Operations</span>
+                </div>
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">Case Studies</h2>
+                <p class="text-gray-400 max-w-2xl">Selected declassified operations demonstrating our capabilities. Client identities remain classified.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Case Study 1 -->
+                <div class="case-study bg-cover bg-center" style="background-image: url('data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22800%22 height=%22400%22 viewBox=%220 0 800 400%22 preserveAspectRatio=%22none%22%3E%3Crect fill=%22%23121212%22 width=%22800%22 height=%22400%22/%3E%3Cpath fill=%22%23222%22 d=%22M0 0h800v400H0z%22/%3E%3Cpath fill=%22%23282828%22 d=%22M0 0h400v200H0z%22/%3E%3Cpath fill=%22%23333%22 d=%22M400 0h400v200H400z%22/%3E%3Cpath fill=%22%23333%22 d=%22M0 200h400v200H0z%22/%3E%3Cpath fill=%22%23282828%22 d=%22M400 200h400v200H400z%22/%3E%3C/svg%3E')">
+                    <div class="case-study-content p-8">
+                        <div class="flex items-center mb-4">
+                            <span class="text-xs border border-gray-700 px-2 py-1 mr-3">NAIROBI</span>
+                            <h3 class="font-bold">Asset Recovery</h3>
+                        </div>
+                        <p class="text-gray-300 mb-6">A $12M embezzlement was traced through 4 countries, hidden inside crypto wallets and antique trades. We had boots on the ground within 36 hours. The asset was recovered. The executive never knew who made the call.</p>
+                        <div class="flex justify-between items-center text-xs text-gray-500">
+                            <span>Duration: 17 days</span>
+                            <span>Risk Level: High</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Case Study 2 -->
+                <div class="case-study bg-cover bg-center" style="background-image: url('data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22800%22 height=%22400%22 viewBox=%220 0 800 400%22 preserveAspectRatio=%22none%22%3E%3Crect fill=%22%23121212%22 width=%22800%22 height=%22400%22/%3E%3Cpath fill=%22%23222%22 d=%22M0 0h800v400H0z%22/%3E%3Cpath fill=%22%23282828%22 d=%22M0 0h400v200H0z%22/%3E%3Cpath fill=%22%23333%22 d=%22M400 0h400v200H400z%22/%3E%3Cpath fill=%22%23333%22 d=%22M0 200h400v200H0z%22/%3E%3Cpath fill=%22%23282828%22 d=%22M400 200h400v200H400z%22/%3E%3C/svg%3E')">
+                    <div class="case-study-content p-8">
+                        <div class="flex items-center mb-4">
+                            <span class="text-xs border border-gray-700 px-2 py-1 mr-3">CHICAGO</span>
+                            <h3 class="font-bold">Union Organizer Penetration</h3>
+                        </div>
+                        <p class="text-gray-300 mb-6">A major distribution network faced rising dissent and threats of a walkout. Our operatives infiltrated the core planning group under cover within 14 days, destabilized leadership, and redirected energy to a negotiated resolution.</p>
+                        <div class="flex justify-between items-center text-xs text-gray-500">
+                            <span>Duration: 31 days</span>
+                            <span>Risk Level: Medium</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Case Study 3 -->
+                <div class="case-study bg-cover bg-center" style="background-image: url('data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22800%22 height=%22400%22 viewBox=%220 0 800 400%22 preserveAspectRatio=%22none%22%3E%3Crect fill=%22%23121212%22 width=%22800%22 height=%22400%22/%3E%3Cpath fill=%22%23222%22 d=%22M0 0h800v400H0z%22/%3E%3Cpath fill=%22%23282828%22 d=%22M0 0h400v200H0z%22/%3E%3Cpath fill=%22%23333%22 d=%22M400 0h400v200H400z%22/%3E%3Cpath fill=%22%23333%22 d=%22M0 200h400v200H0z%22/%3E%3Cpath fill=%22%23282828%22 d=%22M400 200h400v200H400z%22/%3E%3C/svg%3E')">
+                    <div class="case-study-content p-8">
+                        <div class="flex items-center mb-4">
+                            <span class="text-xs border border-gray-700 px-2 py-1 mr-3">RUSSIA</span>
+                            <h3 class="font-bold">Compromise Suppression</h3>
+                        </div>
+                        <p class="text-gray-300 mb-6">A board member of a publicly traded tech firm was facing kompromat threats involving private footage and offshore gambling debts. We traced the source, leveraged counter-intel, and reversed the extortion — without alerting media or shareholders.</p>
+                        <div class="flex justify-between items-center text-xs text-gray-500">
+                            <span>Duration: 42 days</span>
+                            <span>Risk Level: Critical</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Case Study 4 -->
+                <div class="case-study bg-cover bg-center" style="background-image: url('data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22800%22 height=%22400%22 viewBox=%220 0 800 400%22 preserveAspectRatio=%22none%22%3E%3Crect fill=%22%23121212%22 width=%22800%22 height=%22400%22/%3E%3Cpath fill=%22%23222%22 d=%22M0 0h800v400H0z%22/%3E%3Cpath fill=%22%23282828%22 d=%22M0 0h400v200H0z%22/%3E%3Cpath fill=%22%23333%22 d=%22M400 0h400v200H400z%22/%3E%3Cpath fill=%22%23333%22 d=%22M0 200h400v200H0z%22/%3E%3Cpath fill=%22%23282828%22 d=%22M400 200h400v200H400z%22/%3E%3C/svg%3E')">
+                    <div class="case-study-content p-8">
+                        <div class="flex items-center mb-4">
+                            <span class="text-xs border border-gray-700 px-2 py-1 mr-3">CLASSIFIED</span>
+                            <h3 class="font-bold">Private Target Extraction</h3>
+                        </div>
+                        <p class="text-gray-300 mb-6">A high-net-worth individual's daughter was radicalized and taken into a foreign ideological compound. Local authorities refused involvement. We exfiltrated her within 10 days. No one was arrested. No records were created.</p>
+                        <div class="flex justify-between items-center text-xs text-gray-500">
+                            <span>Duration: 10 days</span>
+                            <span>Risk Level: Extreme</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why We're Different Section -->
+    <section class="section bg-black">
+        <div class="container mx-auto px-6">
+            <div class="mb-16">
+                <div class="inline-block px-3 py-1 mb-6 border border-red-900 bg-red-900/10">
+                    <span class="text-xs uppercase tracking-widest">Methodology</span>
+                </div>
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">Why We're Not Like the Others</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-gray-900/30 p-8">
+                    <h3 class="text-xl font-bold mb-4">Beyond Consulting</h3>
+                    <p class="text-gray-300">We do not sell consulting. We deliver outcomes. Our clients pay for results, not reports or recommendations.</p>
+                </div>
+                
+                <div class="bg-gray-900/30 p-8">
+                    <h3 class="text-xl font-bold mb-4">Source Creation</h3>
+                    <p class="text-gray-300">We don't rely on open-source intel. We create sources. Our operatives build trust with targets, extract what others can't, and vanish.</p>
+                </div>
+                
+                <div class="bg-gray-900/30 p-8">
+                    <h3 class="text-xl font-bold mb-4">Operational Silence</h3>
+                    <p class="text-gray-300">We don't publish whitepapers. We operate in silence. Our success is measured by the absence of evidence that we were ever involved.</p>
+                </div>
+            </div>
+            
+            <div class="mt-12 text-center">
+                <p class="text-gray-400 max-w-2xl mx-auto">Most firms rely on analytics and OSINT. We go further: We build trust with targets, extract what others can't, and vanish without a trace. Our operations leave no digital or physical footprint.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section bg-gradient-to-b from-black to-gray-900">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">Secure Contact Protocols</h2>
+                <p class="text-gray-400 mb-8">If you're ready to initiate secure contact, we offer two channels only.<br>No CRM. No intake forms. No account managers.</p>
+            </div>
+            
+            <div class="max-w-xl mx-auto bg-gray-900/30 p-8 border border-gray-800">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="text-center">
+                        <div class="h-16 w-16 mx-auto mb-4 flex items-center justify-center border border-red-900">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Telegram</h3>
+                        <p class="text-gray-300 mb-4">Secure messaging platform</p>
+                        <div class="bg-gray-800 p-3 font-mono text-sm">@AlphaPenetration</div>
+                    </div>
+                    
+                    <div class="text-center">
+                        <div class="h-16 w-16 mx-auto mb-4 flex items-center justify-center border border-red-900">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">ProtonMail</h3>
+                        <p class="text-gray-300 mb-4">End-to-end encrypted email</p>
+                        <a href="mailto:contact@alphapenetration.com" class="bg-gray-800 p-3 font-mono text-sm block hover:bg-gray-700 transition-colors">Send Email</a>
+                    </div>
+                </div>
+                
+                <div class="mt-8 text-center">
+                    <p class="text-sm text-gray-400 mb-4">All Messages are end-to-end Encrypted.</p>
+                    <p class="text-sm text-gray-500">We respond only to credible inquiries. If you know, you know.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black border-t border-gray-900 py-12">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-8 md:mb-0">
+                    <div class="flex items-center">
+                        <svg class="h-8 w-8 mr-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#8b0000" stroke-width="2"/>
+                            <path d="M2 17L12 22L22 17" stroke="#8b0000" stroke-width="2"/>
+                            <path d="M2 12L12 17L22 12" stroke="#8b0000" stroke-width="2"/>
+                        </svg>
+                        <span class="text-xl font-bold tracking-wider">ALPHA PENETRATION</span>
+                    </div>
+                </div>
+                
+                <div class="flex space-x-8 mb-8 md:mb-0">
+                    <a href="#" class="text-sm text-gray-500 hover:text-white">Privacy Policy</a>
+                    <a href="#" class="text-sm text-gray-500 hover:text-white">Operational Ethics</a>
+                    <a href="mailto:login@alphapenetration.com/" class="text-sm text-gray-500 hover:text-white">Encrypted Portal Login</a>
+                </div>
+                
+                <div>
+                    <div class="text-sm text-gray-600">
+                        Alpha Penetration • We deploy assets. Not slide decks.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 pt-8 border-t border-gray-900 text-xs text-gray-700 text-center">
+                Access to this site is monitored and recorded. Unauthorized access prohibited.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Create animated code stream background
+        document.addEventListener('DOMContentLoaded', function() {
+            const codeStream = document.getElementById('codeStream');
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?';
+            
+            function createCodeLine() {
+                const line = document.createElement('div');
+                line.className = 'code-line';
+                
+                // Random position
+                const left = Math.random() * 100;
+                line.style.left = `${left}%`;
+                
+                // Random animation duration
+                const duration = 5 + Math.random() * 15;
+                line.style.animationDuration = `${duration}s`;
+                
+                // Generate random code
+                let code = '';
+                const length = 20 + Math.floor(Math.random() * 80);
+                for (let i = 0; i < length; i++) {
+                    code += characters.charAt(Math.floor(Math.random() * characters.length));
+                }
+                line.textContent = code;
+                
+                codeStream.appendChild(line);
+                
+                // Remove after animation completes
+                setTimeout(() => {
+                    line.remove();
+                }, duration * 1000);
+            }
+            
+            // Create initial lines
+            for (let i = 0; i < 20; i++) {
+                createCodeLine();
+            }
+            
+            // Continue creating lines
+            setInterval(createCodeLine, 300);
+            
+            // Create radar blips dynamically
+            function createRadarBlip() {
+                const radar = document.querySelector('.radar-container');
+                if (radar) {
+                    const blip = document.createElement('div');
+                    blip.className = 'radar-blip';
+                    
+                    // Random position within the radar
+                    const angle = Math.random() * Math.PI * 2;
+                    const distance = Math.random() * 45 + 5; // 5-50% from center
+                    
+                    const x = 50 + Math.cos(angle) * distance;
+                    const y = 50 + Math.sin(angle) * distance;
+                    
+                    blip.style.top = `${y}%`;
+                    blip.style.left = `${x}%`;
+                    
+                    radar.appendChild(blip);
+                    
+                    // Remove after animation
+                    setTimeout(() => {
+                        blip.remove();
+                    }, 2000);
+                }
+            }
+            
+            // Create blips periodically
+            setInterval(createRadarBlip, 2000);
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9554fa9cd35717e5',t:'MTc1MDg1OTg5OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
