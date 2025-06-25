@@ -672,48 +672,65 @@ black ops intel company" content="private intelligence agency, corporate espiona
     </section>
 
     <!-- Radar Animation Section -->
-    <section class="section bg-gradient-to-b from-gray-900 to-black">
-        <div class="container mx-auto px-6">
-            <div class="flex flex-col md:flex-row items-center justify-between gap-12">
-                <div class="w-full md:w-1/2">
-                    <div class="inline-block px-3 py-1 mb-6 border border-red-900 bg-red-900/10">
-                        <span class="text-xs uppercase tracking-widest">Global Surveillance</span>
-                    </div>
-                    <h2 class="text-3xl md:text-4xl font-bold mb-6">Real-Time Target Acquisition</h2>
-                    <p class="text-gray-400 mb-6">Our proprietary tracking systems monitor high-value targets across all continents. We maintain constant surveillance on subjects of interest, ready to deploy assets within hours of authorization.</p>
-                    
-                    <div class="grid grid-cols-2 gap-6 mb-8">
-                        <div class="bg-gray-900/30 p-4">
-                            <div class="text-sm text-gray-500 uppercase tracking-wider mb-1">Active Targets</div>
-                            <div class="text-2xl">143</div>
-                        </div>
-                        <div class="bg-gray-900/30 p-4">
-                            <div class="text-sm text-gray-500 uppercase tracking-wider mb-1">Response Time</div>
-                            <div class="text-2xl">4-36 hrs</div>
-                        </div>
-                    </div>
-                    
-                    <p class="text-sm text-gray-500">Our surveillance network operates with zero digital footprint, utilizing proprietary frequency-hopping protocols and quantum-resistant encryption.</p>
-                </div>
-                
-                <div class="w-full md:w-1/2">
-                    <div class="radar-container">
-                        <div class="radar-grid">
-                            <div class="radar-circle"></div>
-                            <div class="radar-circle"></div>
-                            <div class="radar-circle"></div>
-                            <div class="radar-line radar-line-h"></div>
-                            <div class="radar-line radar-line-v"></div>
-                        </div>
-                        <div class="radar-sweep"></div>
-                        <div class="radar-blip" style="top: 30%; left: 65%;"></div>
-                        <div class="radar-blip" style="top: 70%; left: 25%;"></div>
-                        <div class="radar-blip" style="top: 45%; left: 80%;"></div>
-                    </div>
-                </div>
-            </div>
+<section class="section bg-gradient-to-b from-gray-900 to-black">
+  <div class="container mx-auto px-6">
+    <div class="flex flex-col md:flex-row items-center justify-between gap-12">
+      <div class="w-full md:w-1/2">
+        <div class="inline-block px-3 py-1 mb-6 border border-red-900 bg-red-900/10">
+          <span class="text-xs uppercase tracking-widest">Global Surveillance</span>
         </div>
-    </section>
+        <h2 class="text-3xl md:text-4xl font-bold mb-6">Real-Time Target Acquisition</h2>
+        <p class="text-gray-400 mb-6">
+          Our proprietary tracking systems monitor high-value targets across all continents. We maintain constant surveillance on subjects of interest, ready to deploy assets within hours of authorization.
+        </p>
+
+        <div class="grid grid-cols-2 gap-6 mb-8">
+          <div class="bg-gray-900/30 p-4">
+            <div class="text-sm text-gray-500 uppercase tracking-wider mb-1">Active Targets</div>
+            <div class="text-2xl" id="activeTargets">143</div>
+          </div>
+          <div class="bg-gray-900/30 p-4">
+            <div class="text-sm text-gray-500 uppercase tracking-wider mb-1">Response Time</div>
+            <div class="text-2xl">4-36 hrs</div>
+          </div>
+        </div>
+
+        <p class="text-sm text-gray-500">
+          Our surveillance network operates with zero digital footprint, utilizing proprietary frequency-hopping protocols and quantum-resistant encryption.
+        </p>
+      </div>
+
+      <div class="w-full md:w-1/2">
+        <div class="radar-container">
+          <div class="radar-grid">
+            <div class="radar-circle"></div>
+            <div class="radar-circle"></div>
+            <div class="radar-circle"></div>
+            <div class="radar-line radar-line-h"></div>
+            <div class="radar-line radar-line-v"></div>
+          </div>
+          <div class="radar-sweep"></div>
+          <div class="radar-blip" style="top: 30%; left: 65%;"></div>
+          <div class="radar-blip" style="top: 70%; left: 25%;"></div>
+          <div class="radar-blip" style="top: 45%; left: 80%;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Counter Script -->
+<script>
+  const sequence = [2, -1, 4, -1, 1, -3, -1, 1];
+  let index = 0;
+  let value = 143;
+
+  setInterval(() => {
+    value += sequence[index];
+    document.getElementById("activeTargets").textContent = value;
+    index = (index + 1) % sequence.length;
+  }, 4000);
+</script>
 
 <!-- Clients Section -->
 <section id="clients" class="section bg-gradient-to-b from-black to-#0b0f1a py-20">
